@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Road Trip Europa 2026 — Célia, Namba & Aline</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --dark: #1A1410;
+    --terra: #C4622D;
+    --gold: #D4A853;
+    --olive: #6B7C4A;
+    --wine: #7B2D42;
+    --sand: #E8DCC8;
+    --muted: #7A6F64;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--dark);
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(196,98,45,0.2) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(123,45,66,0.2) 0%, transparent 60%);
+  }
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--cream);
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .hero h1 em {
+    color: var(--terra);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(245,240,232,0.6);
+    font-weight: 300;
+    letter-spacing: 1px;
+    position: relative;
+    margin-bottom: 40px;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    position: relative;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* NAV */
+  .nav {
+    background: var(--sand);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+  .nav a {
+    padding: 16px 24px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  .nav a:hover { color: var(--terra); border-bottom-color: var(--terra); }
+
+  /* SECTIONS */
+  section { padding: 70px 40px; max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .section-title span { color: var(--terra); }
+  .section-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--terra);
+    margin-bottom: 40px;
+  }
+
+  /* CALENDAR */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 40px;
+  }
+  .cal-header {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 4px;
+  }
+  .cal-day {
+    background: white;
+    border-radius: 4px;
+    padding: 6px 8px;
+    min-height: 70px;
+    position: relative;
+    font-size: 12px;
+    transition: transform 0.15s;
+    cursor: default;
+  }
+  .cal-day:hover { transform: scale(1.03); z-index: 2; }
+  .cal-day.empty { background: transparent; }
+  .cal-day.trip {
+    border-left: 3px solid var(--terra);
+  }
+  .cal-day.trip-start { border-radius: 4px 4px 4px 4px; }
+  .cal-day .day-num {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .cal-day .day-city {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+  .cal-day .day-flag { font-size: 12px; }
+
+  /* Color coding by country */
+  .cal-day.es { border-left-color: #C60B1E; background: #fff5f5; }
+  .cal-day.fr { border-left-color: #0055A4; background: #f5f8ff; }
+  .cal-day.it { border-left-color: #009246; background: #f5fff8; }
+  .cal-day.si { border-left-color: #D4A853; background: #fffbf0; }
+  .cal-day.vo { border-left-color: #7B2D42; background: #fff5f7; }
+
+  /* MONTH HEADER */
+  .month-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .month-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand);
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+
+  /* ITINERARY TABLE */
+  .itinerary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .itinerary-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 2px solid var(--sand);
+  }
+  .itinerary-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--sand);
+    vertical-align: middle;
+  }
+  .itinerary-table tr:hover td { background: rgba(196,98,45,0.03); }
+  .dest-name {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 3px;
+  }
+  .dest-note {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .badge-es { background: #ffeaea; color: #C60B1E; }
+  .badge-fr { background: #eaefff; color: #0055A4; }
+  .badge-it { background: #eafff2; color: #007A3D; }
+  .badge-si { background: #fff8e8; color: #8B6914; }
+  .badge-vo { background: #fff0f3; color: #7B2D42; }
+  .nights-badge {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .date-range {
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .section-row td {
+    background: var(--sand);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 16px;
+  }
+
+  /* MAP */
+  .map-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    height: 500px;
+  }
+  .map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* CITIES GRID */
+  .cities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .city-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border-top: 3px solid var(--terra);
+    transition: box-shadow 0.2s;
+  }
+  .city-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+  .city-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .city-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+  .city-card .nights {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .city-tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .city-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .highlight-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    background: var(--cream);
+    border-radius: 20px;
+    color: var(--dark);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: rgba(245,240,232,0.5);
+    text-align: center;
+    padding: 30px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  footer strong { color: var(--gold); }
+
+  @media (max-width: 700px) {
+    .hero-stats { gap: 30px; }
+    .calendar-grid { grid-template-columns: repeat(7, 1fr); gap: 1px; }
+    .cal-day { min-height: 50px; padding: 4px; }
+    .cal-day .day-city { display: none; }
+    section { padding: 40px 20px; }
+    .nav a { padding: 12px 14px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Road Trip Europa 2026</p>
+  <h1>Santiago de Compostela<br>até a <em>Sicília</em></h1>
+  <p class="hero-sub">Célia · Namba · Aline &nbsp;·&nbsp; Maio — Julho 2026</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">40</span>
+      <span class="stat-label">Noites</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">18</span>
+      <span class="stat-label">Destinos</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">4</span>
+      <span class="stat-label">Países</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">6</span>
+      <span class="stat-label">Regiões Vinícolas</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#calendario">Calendário</a>
+  <a href="#roteiro">Roteiro</a>
+  <a href="#mapa">Mapa</a>
+  <a href="#cidades">Cidades</a>
+</nav>
+
+<!-- CALENDÁRIO -->
+<section id="calendario">
+  <h2 class="section-title">Calendário <span>da Viagem</span></h2>
+  <div class="section-divider"></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#ffeaea;border:2px solid #C60B1E;"></div> Espanha</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#eaefff;border:2px solid #0055A4;"></div> França</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#eafff2;border:2px solid #009246;"></div> Itália</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fff8e8;border:2px solid #D4A853;"></div> Sicília</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fff0f3;border:2px solid #7B2D42;"></div> Volta</div>
+  </div>
+
+  <!-- MAIO 2026 -->
+  <div class="month-header">Maio 2026</div>
+  <div class="calendar-grid">
+    <div class="cal-header">Seg</div><div class="cal-header">Ter</div><div class="cal-header">Qua</div>
+    <div class="cal-header">Qui</div><div class="cal-header">Sex</div><div class="cal-header">Sáb</div><div class="cal-header">Dom</div>
+
+    <!-- semana 1 -->
+    <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+    <div class="cal-day empty"></div><div class="cal-day empty"></div>
+    <div class="cal-day es trip"><span class="day-num">23 🛫</span><span class="day-flag">🇪🇸</span><span class="day-city">Santiago de Compostela</span></div>
+    <div class="cal-day es trip"><span class="day-num">24</span><span class="day-city">Santiago de Compostela</span></div>
+
+    <!-- semana 2 -->
+    <div class="cal-day es trip"><span class="day-num">25 →</span><span class="day-flag">🇪🇸</span><span class="day-city">San Sebastián</span></div>
+    <div class="cal-day es trip"><span class="day-num">26</span><span class="day-city">San Sebastián</span></div>
+    <div class="cal-day fr trip"><span class="day-num">27 →</span><span class="day-flag">🇫🇷</span><span class="day-city">Saint-Émilion</span></div>
+    <div class="cal-day fr trip"><span class="day-num">28</span><span class="day-city">Saint-Émilion</span></div>
+    <div class="cal-day fr trip"><span class="day-num">29</span><span class="day-city">Saint-Émilion</span></div>
+    <div class="cal-day fr trip"><span class="day-num">30 →</span><span class="day-flag">🇫🇷</span><span class="day-city">Lyon</span></div>
+    <div class="cal-day fr trip"><span class="day-num">31</span><span class="day-city">Lyon</span></div>
+  </div>
+
+  <!-- JUNHO 2026 -->
+  <div class="month-header" style="margin-top:32px;">Junho 2026</div>
+  <div class="calendar-grid">
+    <div class="cal-header">Seg</div><div class="cal-header">Ter</div><div class="cal-header">Qua</div>
+    <div class="cal-header">Qui</div><div class="cal-header">Sex</div><div class="cal-header">Sáb</div><div class="cal-header">Dom</div>
+
+    <div class="cal-day fr trip"><span class="day-num">01</span><span class="day-city">Lyon</span></div>
+    <div class="cal-day fr trip"><span class="day-num">02 →</span><span class="day-flag">🇫🇷</span><span class="day-city">Annecy</span></div>
+    <div class="cal-day it trip"><span class="day-num">03 →</span><span class="day-flag">🇮🇹</span><span class="day-city">Cinque Terre</span></div>
+    <div class="cal-day it trip"><span class="day-num">04</span><span class="day-city">Cinque Terre</span></div>
+    <div class="cal-day it trip"><span class="day-num">05 →</span><span class="day-city">Montalcino</span></div>
+    <div class="cal-day it trip"><span class="day-num">06</span><span class="day-city">Montalcino</span></div>
+    <div class="cal-day it trip"><span class="day-num">07</span><span class="day-city">Montalcino</span></div>
+
+    <div class="cal-day it trip"><span class="day-num">08 →</span><span class="day-city">Roma</span></div>
+    <div class="cal-day it trip"><span class="day-num">09</span><span class="day-city">Roma</span></div>
+    <div class="cal-day it trip"><span class="day-num">10</span><span class="day-city">Roma</span></div>
+    <div class="cal-day it trip"><span class="day-num">11</span><span class="day-city">Roma</span></div>
+    <div class="cal-day it trip"><span class="day-num">12 →</span><span class="day-city">Sorrento</span></div>
+    <div class="cal-day it trip"><span class="day-num">13</span><span class="day-city">Sorrento</span></div>
+    <div class="cal-day it trip"><span class="day-num">14</span><span class="day-city">Sorrento</span></div>
+
+    <div class="cal-day si trip"><span class="day-num">15 →</span><span class="day-flag">🌋</span><span class="day-city">Taormina</span></div>
+    <div class="cal-day si trip"><span class="day-num">16</span><span class="day-city">Taormina</span></div>
+    <div class="cal-day si trip"><span class="day-num">17 →</span><span class="day-city">Siracusa</span></div>
+    <div class="cal-day si trip"><span class="day-num">18</span><span class="day-city">Siracusa</span></div>
+    <div class="cal-day si trip"><span class="day-num">19</span><span class="day-city">Siracusa</span></div>
+    <div class="cal-day si trip"><span class="day-num">20 →</span><span class="day-city">Agrigento</span></div>
+    <div class="cal-day si trip"><span class="day-num">21</span><span class="day-city">Agrigento</span></div>
+
+    <div class="cal-day si trip"><span class="day-num">22 →</span><span class="day-city">Marsala/Trapani</span></div>
+    <div class="cal-day si trip"><span class="day-num">23</span><span class="day-city">Marsala/Trapani</span></div>
+    <div class="cal-day si trip"><span class="day-num">24</span><span class="day-city">Marsala/Trapani</span></div>
+    <div class="cal-day si trip"><span class="day-num">25 →</span><span class="day-city">Palermo</span></div>
+    <div class="cal-day si trip"><span class="day-num">26</span><span class="day-city">Palermo ☀️Cefalù</span></div>
+    <div class="cal-day si trip"><span class="day-num">27</span><span class="day-city">Palermo</span></div>
+    <div class="cal-day vo trip"><span class="day-num">28 →</span><span class="day-flag">⛴️</span><span class="day-city">Tropea</span></div>
+  </div>
+
+  <!-- JULHO 2026 -->
+  <div class="month-header" style="margin-top:32px;">Julho 2026</div>
+  <div class="calendar-grid">
+    <div class="cal-header">Seg</div><div class="cal-header">Ter</div><div class="cal-header">Qua</div>
+    <div class="cal-header">Qui</div><div class="cal-header">Sex</div><div class="cal-header">Sáb</div><div class="cal-header">Dom</div>
+
+    <div class="cal-day vo trip"><span class="day-num">29</span><span class="day-city">Tropea</span></div>
+    <div class="cal-day vo trip"><span class="day-num">30</span><span class="day-city">Tropea</span></div>
+    <div class="cal-day vo trip"><span class="day-num">01 →</span><span class="day-city">Paestum</span></div>
+    <div class="cal-day vo trip"><span class="day-num">02 →</span><span class="day-city">Positano</span></div>
+    <div class="cal-day vo trip"><span class="day-num">03</span><span class="day-city">Positano</span></div>
+    <div class="cal-day it trip"><span class="day-num">04 →</span><span class="day-flag">🏛️</span><span class="day-city">Roma 🏠</span></div>
+    <div class="cal-day empty"></div>
+  </div>
+</section>
+
+<!-- ROTEIRO COMPLETO -->
+<section id="roteiro" style="background:white;max-width:100%;padding:70px 0;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
+  <h2 class="section-title">Roteiro <span>Completo</span></h2>
+  <div class="section-divider"></div>
+
+  <table class="itinerary-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Destino</th>
+        <th>País</th>
+        <th>Noites</th>
+        <th>Check-in</th>
+        <th>Check-out</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="section-row"><td colspan="6">🛣️ IDA — Santiago de Compostela → Sicília</td></tr>
+      <tr>
+        <td>1</td>
+        <td><div class="dest-name">Santiago de Compostela</div><div class="dest-note">Catedral, polvo à galega, Albariño</div></td>
+        <td><span class="badge badge-es">🇪🇸 Espanha</span></td>
+        <td><span class="nights-badge">2 noites</span></td>
+        <td class="date-range">Sáb 23/mai</td>
+        <td class="date-range">Seg 25/mai</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><div class="dest-name">San Sebastián</div><div class="dest-note">Pintxos, Txakoli, estrelas Michelin, Praia La Concha</div></td>
+        <td><span class="badge badge-es">🇪🇸 Espanha</span></td>
+        <td><span class="nights-badge">2 noites</span></td>
+        <td class="date-range">Seg 25/mai</td>
+        <td class="date-range">Qua 27/mai</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><div class="dest-name">Saint-Émilion</div><div class="dest-note">Grand Cru Classé, day trip Bordeaux, canelés, foie gras</div></td>
+        <td><span class="badge badge-fr">🇫🇷 França</span></td>
+        <td><span class="nights-badge">3 noites</span></td>
+        <td class="date-range">Qua 27/mai</td>
+        <td class="date-range">Sáb 30/mai</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><div class="dest-name">Lyon</div><div class="dest-note">Capital gastronômica da França, bouchons, Côtes du Rhône</div></td>
+        <td><span class="badge badge-fr">🇫🇷 França</span></td>
+        <td><span class="nights-badge">3 noites</span></td>
+        <td class="date-range">Sáb 30/mai</td>
+        <td class="date-range">Ter 02/jun</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><div class="dest-name">Annecy</div><div class="dest-note">Lago alpino turquesa, canais medievais, fondue savoyarde</div></td>
+        <td><span class="badge badge-fr">🇫🇷 França</span></td>
+        <td><span class="nights-badge">1 noite</span></td>
+        <td class="date-range">Ter 02/jun</td>
+        <td class="date-range">Qua 03/jun</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><div class="dest-name">Cinque Terre</div><div class="dest-note">Cinco vilas nas falésias, pesto genovese, Sciacchetrà DOC</div></td>
+        <td><span class="badge badge-it">🇮🇹 Itália</span></td>
+        <td><span class="nights-badge">2 noites</span></td>
+        <td class="date-range">Qua 03/jun</td>
+        <td class="date-range">Sex 05/jun</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><div class="dest-name">Montalcino</div><div class="dest-note">Brunello DOCG, Val d'Orcia UNESCO, pici all'aglione, pecorino de Pienza</div></td>
+        <td><span class="badge badge-it">🇮🇹 Itália</span></td>
+        <td><span class="nights-badge">3 noites</span></td>
+        <td class="date-range">Sex 05/jun</td>
+        <td class="date-range">Seg 08/jun</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><div class="dest-name">Roma</div><div class="dest-note">Coliseu, Vaticano, Trastevere, carbonara, cacio e pepe</div></td>
+        <td><span class="badge badge-it">🇮🇹 Itália</span></td>
+        <td><span class="nights-badge">4 noites</span></td>
+        <td class="date-range">Seg 08/jun</td>
+        <td class="date-range">Sex 12/jun</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><div class="dest-name">Sorrento</div><div class="dest-note">Day trips Nápoles + Costa Amalfitana, pizza margherita, limoncello</div></td>
+        <td><span class="badge badge-it">🇮🇹 Itália</span></td>
+        <td><span class="nights-badge">3 noites</span></td>
+        <td class="date-range">Sex 12/jun</td>
+        <td class="date-range">Seg 15/jun</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><div class="dest-name">Taormina</div><div class="dest-note">Teatro Greco + Etna, Etna DOC, granita de amêndoa · Passa por Catania</div></td>
+        <td><span class="badge badge-si">🌋 Sicília</span></td>
+        <td><span class="nights-badge">2 noites</span></td>
+        <td class="date-range">Seg 15/jun</td>
+        <td class="date-range">Qua 17/jun</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td><div class="dest-name">Siracusa</div><div class="dest-note">Ortigia, teatro grego, frutos do mar, Nero d'Avola</div></td>
+        <td><span class="badge badge-si">🌋 Sicília</span></td>
+        <td><span class="nights-badge">3 noites</span></td>
+        <td class="date-range">Qua 17/jun</td>
+        <td class="date-range">Sáb 20/jun</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td><div class="dest-name">Agrigento</div><div class="dest-note">Vale dos Templos ao pôr do sol, culinária árabe-siciliana</div></td>
+        <td><span class="badge badge-si">🌋 Sicília</span></td>
+        <td><span class="nights-badge">2 noites</span></td>
+        <td class="date-range">Sáb 20/jun</td>
+        <td class="date-range">Seg 22/jun</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td><div class="dest-name">Marsala + Trapani</div><div class="dest-note">Cantine Florio, Marsala DOC, salinas com flamingos, couscous de peixe</div></td>
+        <td><span class="badge badge-si">🌋 Sicília</span></td>
+        <td><span class="nights-badge">3 noites</span></td>
+        <td class="date-range">Seg 22/jun</td>
+        <td class="date-range">Qui 25/jun</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td><div class="dest-name">Palermo</div><div class="dest-note">Mercados Ballarò + Vucciria, street food, day trip Cefalù</div></td>
+        <td><span class="badge badge-si">🌋 Sicília</span></td>
+        <td><span class="nights-badge">3 noites</span></td>
+        <td class="date-range">Qui 25/jun</td>
+        <td class="date-range">Dom 28/jun</td>
+      </tr>
+
+      <tr class="section-row"><td colspan="6">🔄 VOLTA — Sicília → Roma (pela Costa Amalfitana)</td></tr>
+      <tr>
+        <td>15</td>
+        <td><div class="dest-name">Tropea ⛴️</div><div class="dest-note">Ferry Palermo→Messina + carro · Falésia sobre mar turquesa, Cirò DOC, nduja</div></td>
+        <td><span class="badge badge-vo">🇮🇹 Calábria</span></td>
+        <td><span class="nights-badge">2 noites</span></td>
+        <td class="date-range">Dom 28/jun</td>
+        <td class="date-range">Ter 01/jul</td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td><div class="dest-name">Paestum</div><div class="dest-note">Templos gregos séc. VI a.C., mozzarella di bufala fresquíssima</div></td>
+        <td><span class="badge badge-vo">🇮🇹 Cilento</span></td>
+        <td><span class="nights-badge">1 noite</span></td>
+        <td class="date-range">Ter 01/jul</td>
+        <td class="date-range">Qua 02/jul</td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td><div class="dest-name">Positano</div><div class="dest-note">Dormir dentro da Costa Amalfitana, day trip Ravello, frutos do mar</div></td>
+        <td><span class="badge badge-vo">🇮🇹 Amalfi</span></td>
+        <td><span class="nights-badge">2 noites</span></td>
+        <td class="date-range">Qua 02/jul</td>
+        <td class="date-range">Sex 04/jul</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td><div class="dest-name">Roma 🏠</div><div class="dest-note">Chegada final — 4h30 de carro via A16</div></td>
+        <td><span class="badge badge-it">🇮🇹 Itália</span></td>
+        <td>—</td>
+        <td class="date-range">Sex 04/jul</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- MAPA -->
+<section id="mapa">
+  <h2 class="section-title">Mapa <span>Interativo</span></h2>
+  <div class="section-divider"></div>
+  <div class="map-container">
+    <iframe
+      src="https://www.google.com/maps/d/embed?mid=1DirDvKwbr83e4Qew2XOP4fGzgQuzbF8&ehbc=2E312F"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+<!-- DESTAQUES POR CIDADE -->
+<section id="cidades" style="background:var(--sand);max-width:100%;padding:70px 0;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
+  <h2 class="section-title">Destaques <span>por Cidade</span></h2>
+  <div class="section-divider"></div>
+  <div class="cities-grid">
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Santiago de Compostela</h3><div class="nights">2 noites · 23–25 mai</div></div>
+        <span class="city-tag badge-es">🇪🇸</span>
+      </div>
+      <p>Catedral magnífica do Caminho de Santiago, mercado de Cervantes e a melhor cozinha galega.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🐙 Polvo à galega</span>
+        <span class="highlight-tag">🌶 Pimentos de Padrón</span>
+        <span class="highlight-tag">🍷 Albariño</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>San Sebastián</h3><div class="nights">2 noites · 25–27 mai</div></div>
+        <span class="city-tag badge-es">🇪🇸</span>
+      </div>
+      <p>A cidade com mais estrelas Michelin per capita do mundo. Pintxos na Parte Vieja e Praia La Concha.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🥂 Txakoli</span>
+        <span class="highlight-tag">🍢 Pintxos</span>
+        <span class="highlight-tag">🍎 Sidra vasca</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Saint-Émilion</h3><div class="nights">3 noites · 27–30 mai</div></div>
+        <span class="city-tag badge-fr">🇫🇷</span>
+      </div>
+      <p>Vila medieval UNESCO com vinhedos Grand Cru. Day trip a Bordeaux (40 min) e Pomerol.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🍷 Grand Cru Classé</span>
+        <span class="highlight-tag">🧁 Canelés</span>
+        <span class="highlight-tag">🦆 Foie gras</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Lyon</h3><div class="nights">3 noites · 30 mai–02 jun</div></div>
+        <span class="city-tag badge-fr">🇫🇷</span>
+      </div>
+      <p>Capital gastronômica da França. Bouchons lyonnais autênticos com quenelles, gratins e tarte aux pralines.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🍷 Côtes du Rhône</span>
+        <span class="highlight-tag">🥘 Quenelles</span>
+        <span class="highlight-tag">🍮 Beaujolais</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Annecy</h3><div class="nights">1 noite · 02–03 jun</div></div>
+        <span class="city-tag badge-fr">🇫🇷</span>
+      </div>
+      <p>A Veneza dos Alpes — lago turquesa impossível, canais medievais e montanhas ao redor.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🧀 Fondue savoyarde</span>
+        <span class="highlight-tag">🍷 Vinhos da Savoie</span>
+        <span class="highlight-tag">🏔️ Paisagem alpina</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Cinque Terre</h3><div class="nights">2 noites · 03–05 jun</div></div>
+        <span class="city-tag badge-it">🇮🇹</span>
+      </div>
+      <p>Cinco vilas de cores impossíveis penduradas em falésias sobre o Mar Tirreno.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🌿 Pesto genovese</span>
+        <span class="highlight-tag">🍞 Focaccia ligure</span>
+        <span class="highlight-tag">🍷 Sciacchetrà DOC</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Montalcino</h3><div class="nights">3 noites · 05–08 jun</div></div>
+        <span class="city-tag badge-it">🇮🇹</span>
+      </div>
+      <p>Cidadela medieval com vista para a Val d'Orcia UNESCO. Capital do Brunello di Montalcino DOCG.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🍷 Brunello DOCG</span>
+        <span class="highlight-tag">🍝 Pici all'aglione</span>
+        <span class="highlight-tag">🧀 Pecorino de Pienza</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Roma</h3><div class="nights">4 noites · 08–12 jun</div></div>
+        <span class="city-tag badge-it">🇮🇹</span>
+      </div>
+      <p>Coliseu, Vaticano, Trastevere ao anoitecer. A tríade da pasta romana na sua versão mais autêntica.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🍝 Carbonara</span>
+        <span class="highlight-tag">🧀 Cacio e pepe</span>
+        <span class="highlight-tag">🍷 Castelli Romani</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Sorrento</h3><div class="nights">3 noites · 12–15 jun</div></div>
+        <span class="city-tag badge-it">🇮🇹</span>
+      </div>
+      <p>Base perfeita para day trips a Nápoles (pizza!) e Costa Amalfitana via ferry para Positano e Amalfi.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🍕 Pizza margherita</span>
+        <span class="highlight-tag">🍋 Limoncello</span>
+        <span class="highlight-tag">🍷 Taurasi DOCG</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Taormina</h3><div class="nights">2 noites · 15–17 jun</div></div>
+        <span class="city-tag badge-si">🌋</span>
+      </div>
+      <p>A mais deslumbrante da Sicília — Teatro Greco com vista para o Etna e Mar Jônio. Day trip ao vulcão.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🍷 Etna DOC</span>
+        <span class="highlight-tag">🍧 Granita de amêndoa</span>
+        <span class="highlight-tag">🌋 Day trip Etna</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Siracusa</h3><div class="nights">3 noites · 17–20 jun</div></div>
+        <span class="city-tag badge-si">🌋</span>
+      </div>
+      <p>Fundada pelos gregos em 734 a.C. A ilha de Ortigia é um labirinto barroco com vista para o mar.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🦐 Frutos do mar</span>
+        <span class="highlight-tag">🍷 Nero d'Avola</span>
+        <span class="highlight-tag">🏛️ Teatro grego</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Agrigento</h3><div class="nights">2 noites · 20–22 jun</div></div>
+        <span class="city-tag badge-si">🌋</span>
+      </div>
+      <p>O Vale dos Templos ao pôr do sol — um dos maiores sítios arqueológicos gregos fora da Grécia.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🏛️ Vale dos Templos</span>
+        <span class="highlight-tag">🌅 Pôr do sol épico</span>
+        <span class="highlight-tag">🌰 Pistache local</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Marsala + Trapani</h3><div class="nights">3 noites · 22–25 jun</div></div>
+        <span class="city-tag badge-si">🌋</span>
+      </div>
+      <p>Cantine Florio para o Marsala DOC histórico. Trapani com flamingos nas salinas e pôr do sol sobre as Egadi.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🍷 Marsala DOC</span>
+        <span class="highlight-tag">🐟 Couscous de peixe</span>
+        <span class="highlight-tag">🦩 Salinas com flamingos</span>
+      </div>
+    </div>
+
+    <div class="city-card">
+      <div class="city-card-header">
+        <div><h3>Palermo</h3><div class="nights">3 noites · 25–28 jun</div></div>
+        <span class="city-tag badge-si">🌋</span>
+      </div>
+      <p>A capital siciliana com mercados Ballarò e Vucciria. Street food árabe-normando e day trip a Cefalù.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🍊 Arancini</span>
+        <span class="highlight-tag">🧁 Cannoli</span>
+        <span class="highlight-tag">☀️ Day trip Cefalù</span>
+      </div>
+    </div>
+
+    <div class="city-card" style="border-top-color:var(--wine);">
+      <div class="city-card-header">
+        <div><h3>Tropea ⛴️</h3><div class="nights">2 noites · 28 jun–01 jul</div></div>
+        <span class="city-tag badge-vo">🇮🇹</span>
+      </div>
+      <p>Ferry de Palermo → Messina + carro. Cidade mais bonita da Calábria, numa falésia sobre mar turquesa.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🍷 Cirò DOC</span>
+        <span class="highlight-tag">🧅 Cebola roxa IGP</span>
+        <span class="highlight-tag">🌊 Mar turquesa</span>
+      </div>
+    </div>
+
+    <div class="city-card" style="border-top-color:var(--wine);">
+      <div class="city-card-header">
+        <div><h3>Paestum</h3><div class="nights">1 noite · 01–02 jul</div></div>
+        <span class="city-tag badge-vo">🇮🇹</span>
+      </div>
+      <p>Três templos gregos do séc. VI a.C. melhor preservados que os da própria Grécia. Mozzarella di bufala local.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🏛️ Templos gregos</span>
+        <span class="highlight-tag">🧀 Mozzarella bufala</span>
+        <span class="highlight-tag">🫒 Azeite do Cilento</span>
+      </div>
+    </div>
+
+    <div class="city-card" style="border-top-color:var(--wine);">
+      <div class="city-card-header">
+        <div><h3>Positano</h3><div class="nights">2 noites · 02–04 jul</div></div>
+        <span class="city-tag badge-vo">🇮🇹</span>
+      </div>
+      <p>Dormir dentro da Costa Amalfitana — casas coloridas em cascata sobre o mar. Day trip a Ravello.</p>
+      <div class="highlights">
+        <span class="highlight-tag">🌊 Costa Amalfitana</span>
+        <span class="highlight-tag">🎻 Ravello</span>
+        <span class="highlight-tag">🍋 Limoncello</span>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<footer>
+  <p>✈️ <strong>Road Trip Europa 2026</strong> &nbsp;·&nbsp; Célia · Namba · Aline &nbsp;·&nbsp; 23 Mai → 04 Jul &nbsp;·&nbsp; 40 noites · 18 destinos · 4 países</p>
+</footer>
+
+<script>
+  // Smooth scroll para os links de navegação
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
