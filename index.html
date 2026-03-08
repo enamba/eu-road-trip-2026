@@ -115,6 +115,49 @@
   .bsi { background:rgba(224,184,74,.15); color:#8A6000; }
   .bvo { background:rgba(192,106,154,.15); color:#803060; }
 
+  /* ── CITY CARDS ── */
+  .cards-bg { background:var(--bg); border-top:1px solid var(--border); }
+  .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+  .card {
+    background:var(--white); border-radius:12px;
+    border:1px solid var(--border);
+    overflow:hidden;
+    transition:box-shadow .2s, transform .2s;
+  }
+  .card:hover { box-shadow:0 8px 28px rgba(0,0,0,.1); transform:translateY(-2px); }
+  .card-top {
+    padding:16px 18px 12px;
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+  }
+  .card-flag { font-size:22px; line-height:1; flex-shrink:0; }
+  .card-title { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--text); line-height:1.2; }
+  .card-date { font-size:11px; color:var(--faint); margin-top:3px; }
+  .card-bdg { font-size:10px; font-weight:600; padding:3px 9px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+  .card-body { padding:14px 18px 16px; }
+  .card-section { margin-bottom:10px; }
+  .card-section:last-child { margin-bottom:0; }
+  .card-label { font-size:9px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--faint); margin-bottom:5px; }
+  .card-tags { display:flex; flex-wrap:wrap; gap:5px; }
+  .tag {
+    background:var(--bg); border:1px solid var(--border);
+    padding:3px 9px; border-radius:20px;
+    font-size:11px; color:var(--muted);
+  }
+  .tag.wine { background:rgba(180,60,100,.07); border-color:rgba(180,60,100,.2); color:#8a3050; }
+  .card-note { font-size:12px; color:var(--muted); line-height:1.5; font-style:italic; }
+
+  /* Accent bar at top of card by region */
+  .card.es { border-top:3px solid var(--es); }
+  .card.fr { border-top:3px solid var(--fr); }
+  .card.it { border-top:3px solid var(--it); }
+  .card.si { border-top:3px solid var(--si); }
+  .card.vo { border-top:3px solid var(--vo); }
+
+  /* Section group label */
+  .card-group { font-family:'Playfair Display',serif; font-size:1rem; color:var(--muted); padding:20px 0 10px; display:flex; align-items:center; gap:12px; }
+  .card-group::after { content:''; flex:1; height:1px; background:var(--border); }
+
   /* MAP */
   .map-wrap { border-radius:12px; overflow:hidden; box-shadow:0 4px 30px rgba(0,0,0,.12); height:500px; }
   .map-wrap iframe { width:100%; height:100%; border:none; }
@@ -140,6 +183,7 @@
 <nav>
   <a href="#calendario">Calendário</a>
   <a href="#roteiro">Roteiro</a>
+  <a href="#destinos">Destinos</a>
   <a href="#mapa">Mapa</a>
 </nav>
 
@@ -300,6 +344,533 @@
       <tr><td>18</td><td><div class="dn">Roma 🏠</div><div class="dnt">Chegada final — 4h30 de carro via A3/A16</div></td><td><span class="bdg bit">🇮🇹 Itália</span></td><td>—</td><td class="dc2">Sex 04/jul</td><td>—</td></tr>
     </tbody>
   </table>
+</div>
+</div>
+
+<!-- ═══ DESTINOS ═══ -->
+<div class="cards-bg" id="destinos">
+<div class="sec">
+  <h2 class="sec-title">Destinos <span>em Detalhe</span></h2>
+  <div class="sec-line"></div>
+
+  <div class="card-group">🇪🇸 Espanha</div>
+  <div class="cards-grid">
+
+    <div class="card es">
+      <div class="card-top">
+        <div><div class="card-flag">🇪🇸</div><div class="card-title">Santiago de Compostela</div><div class="card-date">Sáb 23 — Seg 25 mai · 2 noites</div></div>
+        <span class="card-bdg bes">Galiza</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Polvo à galega</span>
+            <span class="tag">Pimentos de padrón</span>
+            <span class="tag">Caldo galego</span>
+            <span class="tag">Tarta de Santiago</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Albariño DO</span>
+            <span class="tag wine">Rías Baixas</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Catedral (fachada barroca do Obradoiro), Praza do Obradoiro, Mercado de Abastos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card es">
+      <div class="card-top">
+        <div><div class="card-flag">🇪🇸</div><div class="card-title">San Sebastián</div><div class="card-date">Seg 25 — Qua 27 mai · 2 noites</div></div>
+        <span class="card-bdg bes">País Basco</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Pintxos</span>
+            <span class="tag">Bacalhau pil-pil</span>
+            <span class="tag">Marmitako</span>
+            <span class="tag">Idiazabal</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos &amp; Bebidas</div>
+          <div class="card-tags">
+            <span class="tag wine">Txakoli DO</span>
+            <span class="tag wine">Sidra Vasca</span>
+            <span class="tag wine">Rioja Alavesa</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Mais estrelas Michelin per capita do mundo. Bairro Parte Vieja para pintxos, Praia La Concha, Monte Urgull.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">🇫🇷 França</div>
+  <div class="cards-grid">
+
+    <div class="card fr">
+      <div class="card-top">
+        <div><div class="card-flag">🇫🇷</div><div class="card-title">Saint-Émilion</div><div class="card-date">Qua 27 — Sáb 30 mai · 3 noites</div></div>
+        <span class="card-bdg bfr">Bordeaux</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Canelés</span>
+            <span class="tag">Foie gras</span>
+            <span class="tag">Magret de canard</span>
+            <span class="tag">Macarons bordaleses</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Saint-Émilion Grand Cru</span>
+            <span class="tag wine">Merlot dominante</span>
+            <span class="tag wine">Pomerol AOC</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Vila medieval UNESCO. Day trip Bordeaux: Cité du Vin, Médoc, Pont de Pierre. Dormir entre as vinhas.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card fr">
+      <div class="card-top">
+        <div><div class="card-flag">🇫🇷</div><div class="card-title">Lyon</div><div class="card-date">Sáb 30 mai — Ter 02 jun · 3 noites</div></div>
+        <span class="card-bdg bfr">Rhône-Alpes</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Quenelles de brochet</span>
+            <span class="tag">Bouchons lyonnais</span>
+            <span class="tag">Tablier de sapeur</span>
+            <span class="tag">Tarte aux pralines</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Côtes du Rhône</span>
+            <span class="tag wine">Beaujolais Villages</span>
+            <span class="tag wine">Condrieu (Viognier)</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não percer</div>
+          <div class="card-note">Capital gastronómica de França. Traboules (passagens secretas), Vieux-Lyon UNESCO, Halles de Lyon Paul Bocuse.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card fr">
+      <div class="card-top">
+        <div><div class="card-flag">🇫🇷</div><div class="card-title">Annecy</div><div class="card-date">Ter 02 — Qua 03 jun · 1 noite</div></div>
+        <span class="card-bdg bfr">Haute-Savoie</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Fondue savoyarde</span>
+            <span class="tag">Raclette</span>
+            <span class="tag">Reblochon AOP</span>
+            <span class="tag">Tartiflette</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Vin de Savoie AOC</span>
+            <span class="tag wine">Roussette de Savoie</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Lago alpino de água cristalina, canais medievais, Palais de l'Île. Parada de 1 noite a caminho das Cinque Terre.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">🇮🇹 Itália</div>
+  <div class="cards-grid">
+
+    <div class="card it">
+      <div class="card-top">
+        <div><div class="card-flag">🇮🇹</div><div class="card-title">Cinque Terre</div><div class="card-date">Qua 03 — Sex 05 jun · 2 noites</div></div>
+        <span class="card-bdg bit">Ligúria</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Pesto genovese original</span>
+            <span class="tag">Trofie al pesto</span>
+            <span class="tag">Focaccia di Recco</span>
+            <span class="tag">Frutos do mar</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Sciacchetrà DOC (passito)</span>
+            <span class="tag wine">Cinque Terre Bianco DOC</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">5 vilas coloridas nas falésias: Monterosso, Vernazza, Corniglia, Manarola, Riomaggiore. Trilhos entre vilas, vistas ao pôr do sol.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card it">
+      <div class="card-top">
+        <div><div class="card-flag">🇮🇹</div><div class="card-title">Montalcino</div><div class="card-date">Sex 05 — Seg 08 jun · 3 noites</div></div>
+        <span class="card-bdg bit">Toscana</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Pici all'aglione</span>
+            <span class="tag">Cinghiale (javali)</span>
+            <span class="tag">Pecorino di Pienza</span>
+            <span class="tag">Lardo di Colonnata</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Brunello di Montalcino DOCG</span>
+            <span class="tag wine">Rosso di Montalcino DOC</span>
+            <span class="tag wine">Biondi-Santi · Banfi · Casanova di Neri</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Val d'Orcia UNESCO — paisagens de colinas douradas. Day trips: Pienza, Bagno Vignoni, San Quirico d'Orcia.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card it">
+      <div class="card-top">
+        <div><div class="card-flag">🇮🇹</div><div class="card-title">Roma</div><div class="card-date">Seg 08 — Sex 12 jun · 4 noites</div></div>
+        <span class="card-bdg bit">Lácio</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Carbonara</span>
+            <span class="tag">Cacio e pepe</span>
+            <span class="tag">Amatriciana</span>
+            <span class="tag">Supplì</span>
+            <span class="tag">Artichoke alla romana</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Frascati DOC</span>
+            <span class="tag wine">Castelli Romani</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Coliseu, Vaticano, Fórum Romano, Trastevere (jantar), Fontana di Trevi, Villa Borghese.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card it">
+      <div class="card-top">
+        <div><div class="card-flag">🇮🇹</div><div class="card-title">Sorrento</div><div class="card-date">Sex 12 — Seg 15 jun · 3 noites</div></div>
+        <span class="card-bdg bit">Campânia</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Day trips incluídos</div>
+          <div class="card-tags">
+            <span class="tag">🍕 Pizza margherita (Nápoles)</span>
+            <span class="tag">Sfogliatelle</span>
+            <span class="tag">Mozzarella di bufala</span>
+            <span class="tag">Limoncello caseiro</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Taurasi DOCG (Aglianico)</span>
+            <span class="tag wine">Fiano di Avellino</span>
+            <span class="tag wine">Greco di Tufo</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Base ideal para Nápoles (Spaccanapoli, pizza) e Costa Amalfitana (Positano, Ravello, Amalfi). Sorrento: centro histórico e limoneti.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">🌋 Sicília</div>
+  <div class="cards-grid">
+
+    <div class="card si">
+      <div class="card-top">
+        <div><div class="card-flag">🌋</div><div class="card-title">Taormina</div><div class="card-date">Seg 15 — Qua 17 jun · 2 noites</div></div>
+        <span class="card-bdg bsi">Sicília NE</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Granita di mandorle</span>
+            <span class="tag">Brioche col tuppo</span>
+            <span class="tag">Arancini</span>
+            <span class="tag">Pasta alla Norma (Catania)</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Etna Rosso DOC (Nerello Mascalese)</span>
+            <span class="tag wine">Etna Bianco DOC (Carricante)</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Teatro Greco com vista do Etna — um dos panoramas mais dramáticos da Itália. Day trip ao Etna 🌋. Catania como passagem (mercado La Pescheria).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card si">
+      <div class="card-top">
+        <div><div class="card-flag">🏛️</div><div class="card-title">Siracusa</div><div class="card-date">Qua 17 — Sáb 20 jun · 3 noites</div></div>
+        <span class="card-bdg bsi">Sicília SE</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Pesce spada alla ghiotta</span>
+            <span class="tag">Sarde a beccafico</span>
+            <span class="tag">Granita di limone</span>
+            <span class="tag">Caponata</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Nero d'Avola DOC</span>
+            <span class="tag wine">Eloro Pachino DOC</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Ilha de Ortigia (cidade histórica sobre a água), teatro grego séc. V a.C., Fonte Aretusa, mercado de frutos do mar.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card si">
+      <div class="card-top">
+        <div><div class="card-flag">🏛️</div><div class="card-title">Agrigento</div><div class="card-date">Sáb 20 — Seg 22 jun · 2 noites</div></div>
+        <span class="card-bdg bsi">Sicília S</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Arancini di riso</span>
+            <span class="tag">Pasta con le sarde</span>
+            <span class="tag">Torrone di mandorle</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Nero d'Avola</span>
+            <span class="tag wine">Cerasuolo di Vittoria DOCG</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Valle dei Templi — UNESCO. Melhor ao pôr do sol: Tempio della Concordia (séc. V a.C.), Tempio di Giunone iluminado.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card si">
+      <div class="card-top">
+        <div><div class="card-flag">🦩</div><div class="card-title">Marsala + Trapani</div><div class="card-date">Seg 22 — Qui 25 jun · 3 noites</div></div>
+        <span class="card-bdg bsi">Sicília O</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Couscous di pesce</span>
+            <span class="tag">Tonno rosso (atum)</span>
+            <span class="tag">Pesto trapanese</span>
+            <span class="tag">Busiate al ragù</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Marsala DOC (Cantine Florio)</span>
+            <span class="tag wine">Grillo IGT</span>
+            <span class="tag wine">Zibibbo (Moscato di Pantelleria)</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Salinas de Trapani com flamingos ao pôr do sol 🌅, Cantine Florio, day trip às Ilhas Egadi (Favignana, Levanzo, Marettimo) de barco.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card si">
+      <div class="card-top">
+        <div><div class="card-flag">🕌</div><div class="card-title">Palermo</div><div class="card-date">Qui 25 — Dom 28 jun · 3 noites</div></div>
+        <span class="card-bdg bsi">Sicília N</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Street food árabe-normando</span>
+            <span class="tag">Arancini</span>
+            <span class="tag">Sfincione</span>
+            <span class="tag">Panelle (grão-de-bico)</span>
+            <span class="tag">Cannoli siciliani</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Nero d'Avola</span>
+            <span class="tag wine">Nerello Mascalese</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Mercados Ballarò e Vucciria, Cappella Palatina (mosaicos bizantinos), day trip Cefalù ☀️ (Duomo normando + praia).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">🔄 Volta — Calábria &amp; Costa Amalfitana</div>
+  <div class="cards-grid">
+
+    <div class="card vo">
+      <div class="card-top">
+        <div><div class="card-flag">🌊</div><div class="card-title">Tropea</div><div class="card-date">Dom 28 jun — Ter 01 jul · 2 noites</div></div>
+        <span class="card-bdg bvo">Calábria</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Cebola Rossa di Tropea IGP</span>
+            <span class="tag">'Nduja (salame picante)</span>
+            <span class="tag">Pesce spada alla calabrese</span>
+            <span class="tag">Fileja al ragù</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Cirò DOC (Gaglioppo)</span>
+            <span class="tag wine">Greco di Bianco DOC</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Falésia dramática sobre mar turquesa — uma das praias mais bonitas de Itália. Santa Maria dell'Isola (igreja sobre rochedo). Ferry Messina→Reggio (~20min).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card vo">
+      <div class="card-top">
+        <div><div class="card-flag">🏛️</div><div class="card-title">Paestum</div><div class="card-date">Ter 01 — Qua 02 jul · 1 noite</div></div>
+        <span class="card-bdg bvo">Cilento</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Mozzarella di bufala DOP (fresca local)</span>
+            <span class="tag">Azeite Cilento DOP</span>
+            <span class="tag">Fichi bianchi del Cilento</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Aglianico del Cilento DOC</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">3 templos gregos do séc. VI a.C. — melhor preservados que na Grécia. Comprar mozzarella di bufala diretamente das fazendas locais.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card vo">
+      <div class="card-top">
+        <div><div class="card-flag">🌸</div><div class="card-title">Positano</div><div class="card-date">Qua 02 — Sex 04 jul · 2 noites</div></div>
+        <span class="card-bdg bvo">Costa Amalfitana</span>
+      </div>
+      <div class="card-body">
+        <div class="card-section">
+          <div class="card-label">🍽️ Gastronomia</div>
+          <div class="card-tags">
+            <span class="tag">Scialatielli ai frutti di mare</span>
+            <span class="tag">Limoncello della Costa</span>
+            <span class="tag">Delizia al limone</span>
+            <span class="tag">Alici di Cetara (anchovas)</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">🍷 Vinhos</div>
+          <div class="card-tags">
+            <span class="tag wine">Costa d'Amalfi DOC</span>
+            <span class="tag wine">Furore Bianco (Fiorduva)</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="card-label">📍 Não perder</div>
+          <div class="card-note">Casas coloridas em cascata sobre o mar, pôr do sol da praia. Day trip Ravello (Villa Rufolo, jardins e concertos de verão).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 </div>
 
