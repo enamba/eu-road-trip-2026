@@ -7,135 +7,119 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --dark:#1A1410; --terra:#C4622D; --gold:#D4A853;
-    --bg:#1c1c1e; --cell:#242426; --border:#2e2e32;
-    --es:#e07070; --fr:#6a9de0; --it:#6abf85;
-    --si:#e0b84a; --vo:#c06a9a;
+    --terra:#C4622D; --gold:#D4A853;
+    --bg:#F7F3ED; --white:#fff; --border:#DDD5C5;
+    --text:#1A1410; --muted:#7A6F64; --faint:#B0A898;
+    --es:#E07070; --fr:#6A9DE0; --it:#5DB87A;
+    --si:#E0B84A; --vo:#C06A9A;
+    --note-bg:#EDE8DF; --note-text:#9A8F84;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:#ddd; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); }
 
-  /* HERO */
-  .hero { background:#111; padding:48px 40px 36px; text-align:center; border-bottom:1px solid #2a2a2a; }
-  .eyebrow { font-size:11px; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
-  .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,3.4rem); color:#f0f0f0; line-height:1.1; margin-bottom:10px; }
+  /* ── HERO ── */
+  .hero {
+    background:var(--text);
+    padding:56px 40px 44px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse at 30% 50%,rgba(196,98,45,.25) 0%,transparent 60%),
+               radial-gradient(ellipse at 70% 50%,rgba(123,45,66,.2) 0%,transparent 60%);
+  }
+  .eyebrow { font-size:11px; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; position:relative; }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,3.4rem); color:#F7F3ED; line-height:1.1; margin-bottom:10px; position:relative; }
   .hero h1 em { color:var(--terra); font-style:italic; }
-  .hero-sub { font-size:14px; color:rgba(255,255,255,.38); font-weight:300; letter-spacing:1px; margin-bottom:32px; }
-  .stats { display:flex; justify-content:center; gap:48px; flex-wrap:wrap; }
+  .hero-sub { font-size:14px; color:rgba(247,243,237,.45); font-weight:300; letter-spacing:1px; margin-bottom:32px; position:relative; }
+  .stats { display:flex; justify-content:center; gap:48px; flex-wrap:wrap; position:relative; }
   .sn { font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold); display:block; line-height:1; }
-  .sl { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.3); margin-top:4px; display:block; }
+  .sl { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(247,243,237,.35); margin-top:4px; display:block; }
 
-  /* NAV */
-  nav { background:#111; border-bottom:1px solid #2a2a2a; position:sticky; top:0; z-index:100; display:flex; justify-content:center; }
-  nav a { padding:14px 20px; font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase; text-decoration:none; color:#666; border-bottom:2px solid transparent; transition:.2s; }
+  /* ── NAV ── */
+  nav { background:var(--white); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; display:flex; justify-content:center; box-shadow:0 1px 6px rgba(0,0,0,.06); }
+  nav a { padding:14px 22px; font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase; text-decoration:none; color:var(--muted); border-bottom:2px solid transparent; transition:.2s; }
   nav a:hover { color:var(--terra); border-bottom-color:var(--terra); }
 
-  .sec { padding:48px 28px; max-width:1400px; margin:0 auto; }
-  .sec-title { font-family:'Playfair Display',serif; font-size:1.7rem; margin-bottom:6px; color:#f0f0f0; }
+  /* ── SECTIONS ── */
+  .sec { padding:52px 32px; max-width:1400px; margin:0 auto; }
+  .sec-title { font-family:'Playfair Display',serif; font-size:1.7rem; margin-bottom:6px; color:var(--text); }
   .sec-title span { color:var(--terra); }
   .sec-line { width:36px; height:2px; background:var(--terra); margin-bottom:28px; }
 
-  /* LEGEND */
-  .legend { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
-  .leg { display:flex; align-items:center; gap:7px; font-size:12px; color:#888; }
+  /* ── LEGEND ── */
+  .legend { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px; align-items:center; }
+  .leg { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--muted); }
   .leg-dot { width:30px; height:10px; border-radius:3px; }
+  .leg-note { font-size:11px; color:var(--faint); margin-left:8px; }
 
   /* ══ CALENDAR ══ */
-  .cal-section { margin-bottom: 0; }
+  .dow { display:grid; grid-template-columns:repeat(7,1fr); border-bottom:1px solid var(--border); }
+  .dow-h { padding:8px 8px; font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--faint); }
 
-  /* Day of week headers */
-  .dow {
-    display:grid; grid-template-columns:repeat(7,1fr);
-    border-bottom:1px solid var(--border);
-    margin-bottom: 0;
-  }
-  .dow-h { padding:8px 8px; font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#555; }
+  .mlabel { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--muted); padding:20px 0 8px; display:flex; align-items:center; gap:14px; }
+  .mlabel::after { content:''; flex:1; height:1px; background:var(--border); }
 
-  /* Month label */
-  .mlabel {
-    font-family:'Playfair Display',serif; font-size:1.1rem; color:#aaa;
-    padding:20px 0 8px; display:flex; align-items:center; gap:14px;
-  }
-  .mlabel::after { content:''; flex:1; height:1px; background:#2a2a2a; }
-
-  /*
-   * WEEK ROW
-   * Grid: 7 columns (days) × 4 rows:
-   *   row 1: day numbers
-   *   row 2: event track A
-   *   row 3: event track B
-   *   row 4: notes / day-trips
-   */
   .week {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 26px 22px 22px 20px;
-    border-bottom: 1px solid var(--border);
-    min-height: 90px;
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    grid-template-rows:26px 24px 24px 20px;
+    border-bottom:1px solid var(--border);
+    min-height:94px;
+    background:var(--white);
   }
+  .week:nth-child(odd) { background:#FDFAF6; }
 
-  /* Day number cells */
-  .d {
-    grid-row: 1;
-    padding: 4px 6px 0;
-    font-size: 12px; color: #555;
-    border-right: 1px solid var(--border);
-  }
-  .d:last-child { border-right: none; }
-  .d.dim { color: #333; }
+  .d { grid-row:1; padding:5px 7px 0; font-size:12px; color:var(--faint); border-right:1px solid var(--border); }
+  .d:last-child { border-right:none; }
+  .d.dim { color:#D5CFC7; }
 
-  /* Event bar base */
+  /* Event bars */
   .e {
-    display: flex; align-items: center;
-    height: 20px; line-height: 20px;
-    border-radius: 3px;
-    font-size: 11px; font-weight: 500;
-    padding: 0 7px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    color: rgba(0,0,0,.75);
-    margin: 1px 1px 0;
-    cursor: default;
-    transition: filter .15s;
-    align-self: center;
+    display:flex; align-items:center;
+    height:21px; line-height:21px;
+    border-radius:4px;
+    font-size:11px; font-weight:600;
+    padding:0 8px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    margin:1px 2px 0;
+    cursor:default; transition:filter .15s;
+    color:rgba(255,255,255,.95);
   }
-  .e:hover { filter: brightness(1.15); }
+  .e:hover { filter:brightness(1.08); }
+  .ta { grid-row:2; }
+  .tb { grid-row:3; }
+  .nt { grid-row:4; background:var(--note-bg); color:var(--note-text); font-style:italic; font-weight:400; font-size:10px; border-radius:3px; }
 
-  /* Track A = row 2, Track B = row 3 */
-  .ta { grid-row: 2; }
-  .tb { grid-row: 3; }
-  /* Notes = row 4 */
-  .nt { grid-row: 4; background:#2e2e2e; color:#888; font-style:italic; font-weight:400; font-size:10px; }
-
-  /* Country colours */
   .es { background:var(--es); }
   .fr { background:var(--fr); }
   .it { background:var(--it); }
-  .si { background:var(--si); }
-  .vo { background:var(--vo); color:rgba(255,255,255,.85); }
+  .si { background:var(--si); color:rgba(40,20,0,.8); }
+  .vo { background:var(--vo); }
 
   /* ── ITINERARY ── */
-  .iti-bg { background:#111; padding:48px 0; }
+  .iti-bg { background:var(--white); padding:52px 0; border-top:1px solid var(--border); }
   .iti { width:100%; border-collapse:collapse; font-size:14px; }
-  .iti th { text-align:left; padding:10px 16px; font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#555; border-bottom:1px solid #2a2a2a; }
-  .iti td { padding:12px 16px; border-bottom:1px solid #222; vertical-align:middle; color:#bbb; }
-  .iti tr:hover td { background:rgba(255,255,255,.025); }
-  .iti .sr td { background:#1a1a1a; font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#555; padding:7px 16px; }
-  .dn { font-weight:500; font-size:15px; margin-bottom:3px; color:#eee; }
-  .dnt { font-size:12px; color:#666; font-style:italic; }
-  .np { background:#2a2a2a; color:#ccc; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:500; white-space:nowrap; }
-  .dc2 { font-size:13px; color:#666; white-space:nowrap; }
+  .iti th { text-align:left; padding:10px 16px; font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--faint); border-bottom:2px solid var(--border); }
+  .iti td { padding:13px 16px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  .iti tr:hover td { background:rgba(196,98,45,.03); }
+  .iti .sr td { background:#F0EBE0; font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--muted); padding:7px 16px; }
+  .dn { font-weight:500; font-size:15px; margin-bottom:3px; color:var(--text); }
+  .dnt { font-size:12px; color:var(--faint); font-style:italic; }
+  .np { background:var(--text); color:#F7F3ED; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:500; white-space:nowrap; }
+  .dc2 { font-size:13px; color:var(--muted); white-space:nowrap; }
   .bdg { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:500; }
-  .bes { background:rgba(224,112,112,.2); color:#e09090; }
-  .bfr { background:rgba(106,157,224,.2); color:#8ab4e0; }
-  .bit { background:rgba(106,191,133,.2); color:#80d098; }
-  .bsi { background:rgba(224,184,74,.2); color:#e0c870; }
-  .bvo { background:rgba(192,106,154,.2); color:#d090b8; }
+  .bes { background:rgba(224,112,112,.15); color:#C04040; }
+  .bfr { background:rgba(106,157,224,.15); color:#3060A0; }
+  .bit { background:rgba(93,184,122,.15); color:#2A7A4A; }
+  .bsi { background:rgba(224,184,74,.15); color:#8A6000; }
+  .bvo { background:rgba(192,106,154,.15); color:#803060; }
 
   /* MAP */
-  .map-wrap { border-radius:10px; overflow:hidden; box-shadow:0 8px 40px rgba(0,0,0,.5); height:500px; }
+  .map-wrap { border-radius:12px; overflow:hidden; box-shadow:0 4px 30px rgba(0,0,0,.12); height:500px; }
   .map-wrap iframe { width:100%; height:100%; border:none; }
 
-  footer { background:#0a0a0a; color:#3a3a3a; text-align:center; padding:24px; font-size:12px; letter-spacing:1px; }
+  footer { background:var(--text); color:rgba(247,243,237,.35); text-align:center; padding:24px; font-size:12px; letter-spacing:1px; }
   footer strong { color:var(--gold); }
 </style>
 </head>
@@ -170,186 +154,121 @@
     <div class="leg"><div class="leg-dot" style="background:var(--it)"></div>🇮🇹 Itália</div>
     <div class="leg"><div class="leg-dot" style="background:var(--si)"></div>🌋 Sicília</div>
     <div class="leg"><div class="leg-dot" style="background:var(--vo)"></div>🔄 Volta</div>
-    <div class="leg" style="margin-left:12px;font-size:11px;color:#666">Barras se sobrepõem nos dias de transição (check-out = check-in)</div>
+    <span class="leg-note">Barras se sobrepõem nos dias de transição (check-out = check-in)</span>
   </div>
 
-  <!-- Lógica de dias:
-       Cada barra cobre do dia de CHECK-IN até o dia de CHECK-OUT inclusive.
-       No dia de transição ambas as cidades aparecem em linhas diferentes (track A e B).
-       
-       Semanas Sun→Sat (col 1..7)
+  <div class="dow">
+    <div class="dow-h">Dom</div><div class="dow-h">Seg</div><div class="dow-h">Ter</div>
+    <div class="dow-h">Qua</div><div class="dow-h">Qui</div><div class="dow-h">Sex</div>
+    <div class="dow-h">Sáb</div>
+  </div>
+
+  <!-- ══ MAIO ══ -->
+  <div class="mlabel">Maio 2026</div>
+
+  <!-- Semana 17–23 mai -->
+  <div class="week">
+    <div class="d dim">17</div><div class="d dim">18</div><div class="d dim">19</div>
+    <div class="d dim">20</div><div class="d dim">21</div><div class="d dim">22</div>
+    <div class="d">23</div>
+    <div class="e ta es" style="grid-column:7/8">🛫 Santiago de Compostela</div>
+  </div>
+
+  <!-- Semana 24–30 mai
+       Track A: Santiago (24,25=col1-2) | Saint-Émilion (27,28,29,30=col4-7)
+       Track B: San Sebastián (25,26,27=col2-4) | Lyon (30=col7)
   -->
+  <div class="week">
+    <div class="d">24</div><div class="d">25</div><div class="d">26</div>
+    <div class="d">27</div><div class="d">28</div><div class="d">29</div><div class="d">30</div>
+    <div class="e ta es" style="grid-column:1/3">Santiago de Compostela</div>
+    <div class="e ta fr" style="grid-column:4/8">Saint-Émilion</div>
+    <div class="e tb es" style="grid-column:2/5">San Sebastián</div>
+    <div class="e tb fr" style="grid-column:7/8">Lyon</div>
+    <div class="e nt" style="grid-column:5/6">day trip Bordeaux</div>
+  </div>
 
-  <div class="cal-section">
-    <div class="dow">
-      <div class="dow-h">Dom</div><div class="dow-h">Seg</div><div class="dow-h">Ter</div>
-      <div class="dow-h">Qua</div><div class="dow-h">Qui</div><div class="dow-h">Sex</div><div class="dow-h">Sáb</div>
-    </div>
+  <!-- ══ JUNHO ══ -->
+  <div class="mlabel">Junho 2026</div>
 
-    <!-- ══ MAIO ══ -->
-    <div class="mlabel">Maio 2026</div>
+  <!-- Semana 31mai–6jun (Dom=col1)
+       Track A: Lyon (31,1,2=col1-3) | Cinque Terre (3,4,5=col4-6)
+       Track B: Annecy (2,3=col3-4) | Montalcino (5,6=col6-7)
+  -->
+  <div class="week">
+    <div class="d dim">31</div><div class="d">1</div><div class="d">2</div>
+    <div class="d">3</div><div class="d">4</div><div class="d">5</div><div class="d">6</div>
+    <div class="e ta fr" style="grid-column:1/4">Lyon</div>
+    <div class="e ta it" style="grid-column:4/7">Cinque Terre</div>
+    <div class="e tb fr" style="grid-column:3/5">Annecy</div>
+    <div class="e tb it" style="grid-column:6/8">Montalcino</div>
+    <div class="e nt" style="grid-column:6/8">Brunello &amp; Val d'Orcia</div>
+  </div>
 
-    <!--
-      Semana 17–23 maio (Dom–Sáb)
-      23 sáb: chegada Santiago (col 7)
-      Santiago: check-in 23/mai → check-out 25/mai → continua na próxima semana
-    -->
-    <div class="week">
-      <div class="d dim">17</div><div class="d dim">18</div><div class="d dim">19</div>
-      <div class="d dim">20</div><div class="d dim">21</div><div class="d dim">22</div>
-      <div class="d">23</div>
-      <!-- Track A: Santiago começa col7, continua semana seguinte -->
-      <div class="e ta es" style="grid-column:7/8">🛫 Santiago de Compostela</div>
-    </div>
+  <!-- Semana 7–13jun (Dom=col1)
+       Track A: Montalcino (7,8=col1-2) | Sorrento (12,13=col6-7)
+       Track B: Roma (8,9,10,11,12=col2-6)
+  -->
+  <div class="week">
+    <div class="d">7</div><div class="d">8</div><div class="d">9</div>
+    <div class="d">10</div><div class="d">11</div><div class="d">12</div><div class="d">13</div>
+    <div class="e ta it" style="grid-column:1/3">Montalcino</div>
+    <div class="e ta it" style="grid-column:6/8">Sorrento</div>
+    <div class="e tb it" style="grid-column:2/7">Roma</div>
+    <div class="e nt" style="grid-column:6/7">day trip Nápoles</div>
+    <div class="e nt" style="grid-column:7/8">day trip Costa Amalfitana</div>
+  </div>
 
-    <!--
-      Semana 24–30 maio (Dom–Sáb)
-      Track A: Santiago (24–25 = col1-2), Saint-Émilion (27–30 = col4-7)
-      Track B: San Sebastián (25–27 = col2-4), Lyon começa (30 = col7)
-      Transições:
-        col2 (25/mai): Santiago↑ + San Sebastián↓
-        col4 (27/mai): San Sebastián↑ + Saint-Émilion↓
-        col7 (30/mai): Saint-Émilion↑ + Lyon↓
-    -->
-    <div class="week">
-      <div class="d">24</div><div class="d">25</div><div class="d">26</div>
-      <div class="d">27</div><div class="d">28</div><div class="d">29</div><div class="d">30</div>
-      <!-- Track A -->
-      <div class="e ta es" style="grid-column:1/3">Santiago de Compostela</div>
-      <div class="e ta fr" style="grid-column:4/8">Saint-Émilion</div>
-      <!-- Track B -->
-      <div class="e tb es" style="grid-column:2/5">San Sebastián</div>
-      <div class="e tb fr" style="grid-column:7/8">Lyon</div>
-      <!-- Notes -->
-      <div class="e nt" style="grid-column:5/6">day trip Bordeaux</div>
-    </div>
+  <!-- Semana 14–20jun (Dom=col1)
+       Track A: Sorrento (14,15=col1-2) | Siracusa (17,18,19,20=col4-7)
+       Track B: Taormina (15,16,17=col2-4) | Agrigento (20=col7)
+  -->
+  <div class="week">
+    <div class="d">14</div><div class="d">15</div><div class="d">16</div>
+    <div class="d">17</div><div class="d">18</div><div class="d">19</div><div class="d">20</div>
+    <div class="e ta it" style="grid-column:1/3">Sorrento</div>
+    <div class="e ta si" style="grid-column:4/8">Siracusa</div>
+    <div class="e tb si" style="grid-column:2/5">⛴️ Taormina</div>
+    <div class="e tb si" style="grid-column:7/8">Agrigento</div>
+    <div class="e nt" style="grid-column:3/4">day trip Etna 🌋</div>
+    <div class="e nt" style="grid-column:4/5">passa por Catania</div>
+  </div>
 
-    <!-- ══ JUNHO ══ -->
-    <div class="mlabel">Junho 2026</div>
+  <!-- Semana 21–27jun (Dom=col1)
+       Track A: Agrigento (21,22=col1-2) | Palermo (25,26,27=col5-7)
+       Track B: Marsala/Trapani (22,23,24,25=col2-5)
+  -->
+  <div class="week">
+    <div class="d">21</div><div class="d">22</div><div class="d">23</div>
+    <div class="d">24</div><div class="d">25</div><div class="d">26</div><div class="d">27</div>
+    <div class="e ta si" style="grid-column:1/3">Agrigento</div>
+    <div class="e ta si" style="grid-column:5/8">Palermo</div>
+    <div class="e tb si" style="grid-column:2/6">Marsala / Trapani</div>
+    <div class="e nt" style="grid-column:1/2">Vale dos Templos 🌅</div>
+    <div class="e nt" style="grid-column:3/4">Cantine Florio</div>
+    <div class="e nt" style="grid-column:4/5">salinas &amp; Egadi 🌅</div>
+    <div class="e nt" style="grid-column:6/7">day trip Cefalù ☀️</div>
+  </div>
 
-    <!--
-      Semana 31mai–6jun (Dom–Sáb) — Dom=col1
-      31mai=col1, 1jun=col2, 2jun=col3, 3jun=col4, 4jun=col5, 5jun=col6, 6jun=col7
-      Track A: Lyon (31,1,2 = col1-3), Cinque Terre (3,4,5 = col4-6)
-      Track B: Annecy (2,3 = col3-4), Montalcino (5,6 = col6-7)
-      Transições:
-        col3 (2/jun): Lyon↑ + Annecy↓
-        col4 (3/jun): Annecy↑ + Cinque Terre↓
-        col6 (5/jun): Cinque Terre↑ + Montalcino↓
-    -->
-    <div class="week">
-      <div class="d dim">31</div><div class="d">1</div><div class="d">2</div>
-      <div class="d">3</div><div class="d">4</div><div class="d">5</div><div class="d">6</div>
-      <!-- Track A -->
-      <div class="e ta fr" style="grid-column:1/4">Lyon</div>
-      <div class="e ta it" style="grid-column:4/7">Cinque Terre</div>
-      <!-- Track B -->
-      <div class="e tb fr" style="grid-column:3/5">Annecy</div>
-      <div class="e tb it" style="grid-column:6/8">Montalcino</div>
-      <!-- Notes -->
-      <div class="e nt" style="grid-column:6/8">Brunello &amp; Val d'Orcia</div>
-    </div>
+  <!-- Semana 28jun–4jul (Dom=col1)
+       Track A: Palermo (28=col1) | Paestum (1,2jul=col4-5) | Roma (4jul=col7)
+       Track B: Tropea (28,29,30,1jul=col1-4) | Positano (2,3,4jul=col5-7)
+  -->
+  <div class="week">
+    <div class="d">28</div><div class="d">29</div><div class="d">30</div>
+    <div class="d">1 Jul</div><div class="d">2</div><div class="d">3</div><div class="d">4</div>
+    <div class="e ta si" style="grid-column:1/2">Palermo</div>
+    <div class="e ta vo" style="grid-column:4/6">Paestum</div>
+    <div class="e ta it" style="grid-column:7/8">🏠 Roma</div>
+    <div class="e tb vo" style="grid-column:1/5">⛴️ Tropea (Calábria)</div>
+    <div class="e tb vo" style="grid-column:5/8">Positano (Costa Amalfitana)</div>
+    <div class="e nt" style="grid-column:1/2">ferry Messina→Calábria</div>
+    <div class="e nt" style="grid-column:4/5">templos gregos &amp; bufala</div>
+    <div class="e nt" style="grid-column:5/7">day trip Ravello</div>
+    <div class="e nt" style="grid-column:7/8">chegada final</div>
+  </div>
 
-    <!--
-      Semana 7–13jun (Dom–Sáb)
-      7=col1, 8=col2, 9=col3, 10=col4, 11=col5, 12=col6, 13=col7
-      Track A: Montalcino (7,8 = col1-2), Sorrento (12,13 = col6-7)
-      Track B: Roma (8,9,10,11,12 = col2-6)
-      Transições:
-        col2 (8/jun): Montalcino↑ + Roma↓
-        col6 (12/jun): Roma↑ + Sorrento↓
-    -->
-    <div class="week">
-      <div class="d">7</div><div class="d">8</div><div class="d">9</div>
-      <div class="d">10</div><div class="d">11</div><div class="d">12</div><div class="d">13</div>
-      <!-- Track A -->
-      <div class="e ta it" style="grid-column:1/3">Montalcino</div>
-      <div class="e ta it" style="grid-column:6/8">Sorrento</div>
-      <!-- Track B -->
-      <div class="e tb it" style="grid-column:2/7">Roma</div>
-      <!-- Notes -->
-      <div class="e nt" style="grid-column:6/7">day trip Nápoles</div>
-    </div>
-
-    <!--
-      Semana 14–20jun (Dom–Sáb)
-      14=col1, 15=col2, 16=col3, 17=col4, 18=col5, 19=col6, 20=col7
-      Track A: Sorrento (14,15 = col1-2), Siracusa (17,18,19,20 = col4-7)
-      Track B: Taormina (15,16,17 = col2-4), Agrigento começa (20 = col7)
-      Transições:
-        col2 (15/jun): Sorrento↑ + Taormina↓
-        col4 (17/jun): Taormina↑ + Siracusa↓
-        col7 (20/jun): Siracusa↑ + Agrigento↓
-    -->
-    <div class="week">
-      <div class="d">14</div><div class="d">15</div><div class="d">16</div>
-      <div class="d">17</div><div class="d">18</div><div class="d">19</div><div class="d">20</div>
-      <!-- Track A -->
-      <div class="e ta it" style="grid-column:1/3">Sorrento</div>
-      <div class="e ta si" style="grid-column:4/8">Siracusa</div>
-      <!-- Track B -->
-      <div class="e tb si" style="grid-column:2/5">⛴️ Taormina</div>
-      <div class="e tb si" style="grid-column:7/8">Agrigento</div>
-      <!-- Notes -->
-      <div class="e nt" style="grid-column:1/2">day trip Costa Amalfitana</div>
-      <div class="e nt" style="grid-column:3/4">day trip Etna 🌋</div>
-      <div class="e nt" style="grid-column:4/5">passa por Catania</div>
-    </div>
-
-    <!--
-      Semana 21–27jun (Dom–Sáb)
-      21=col1, 22=col2, 23=col3, 24=col4, 25=col5, 26=col6, 27=col7
-      Track A: Agrigento (21,22 = col1-2), Palermo (25,26,27 = col5-7)
-      Track B: Marsala/Trapani (22,23,24,25 = col2-5)
-      Transições:
-        col2 (22/jun): Agrigento↑ + Marsala↓
-        col5 (25/jun): Marsala↑ + Palermo↓
-    -->
-    <div class="week">
-      <div class="d">21</div><div class="d">22</div><div class="d">23</div>
-      <div class="d">24</div><div class="d">25</div><div class="d">26</div><div class="d">27</div>
-      <!-- Track A -->
-      <div class="e ta si" style="grid-column:1/3">Agrigento</div>
-      <div class="e ta si" style="grid-column:5/8">Palermo</div>
-      <!-- Track B -->
-      <div class="e tb si" style="grid-column:2/6">Marsala / Trapani</div>
-      <!-- Notes -->
-      <div class="e nt" style="grid-column:1/2">Vale dos Templos 🌅</div>
-      <div class="e nt" style="grid-column:3/4">Cantine Florio</div>
-      <div class="e nt" style="grid-column:4/5">salinas &amp; Egadi 🌅</div>
-      <div class="e nt" style="grid-column:6/7">day trip Cefalù ☀️</div>
-    </div>
-
-    <!--
-      Semana 28jun–4jul (Dom–Sáb)
-      28jun=col1, 29=col2, 30=col3, 1jul=col4, 2jul=col5, 3jul=col6, 4jul=col7
-      Track A: Palermo (28 = col1), Paestum (1,2jul = col4-5), Roma chegada (4jul = col7)
-      Track B: Tropea (28,29,30,1jul = col1-4), Positano (2,3,4jul = col5-7)
-      Transições:
-        col1 (28/jun): Palermo↑ + Tropea↓
-        col4 (1/jul): Tropea↑ + Paestum↓
-        col5 (2/jul): Paestum↑ + Positano↓
-        col7 (4/jul): Positano↑ + Roma↓
-    -->
-    <div class="week">
-      <div class="d">28</div><div class="d">29</div><div class="d">30</div>
-      <div class="d">1 Jul</div><div class="d">2</div><div class="d">3</div><div class="d">4</div>
-      <!-- Track A -->
-      <div class="e ta si" style="grid-column:1/2">Palermo</div>
-      <div class="e ta vo" style="grid-column:4/6">Paestum</div>
-      <div class="e ta it" style="grid-column:7/8">🏠 Roma</div>
-      <!-- Track B -->
-      <div class="e tb vo" style="grid-column:1/5">⛴️ Tropea (Calábria)</div>
-      <div class="e tb vo" style="grid-column:5/8">Positano (Costa Amalfitana)</div>
-      <!-- Notes -->
-      <div class="e nt" style="grid-column:1/2">ferry Messina→Calábria</div>
-      <div class="e nt" style="grid-column:4/5">templos gregos &amp; bufala</div>
-      <div class="e nt" style="grid-column:5/7">day trip Ravello</div>
-      <div class="e nt" style="grid-column:7/8">chegada final</div>
-    </div>
-
-  </div><!-- end cal-section -->
-</div><!-- end sec -->
+</div>
 
 <!-- ═══ ROTEIRO ═══ -->
 <div class="iti-bg" id="roteiro">
